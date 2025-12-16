@@ -5,11 +5,10 @@ namespace GraphQL.Presentation.Helper
 {
     public static class GraphQLHelpers
     {        
-        public static IRequestExecutorBuilder RegisterGraphQLTypes(this IRequestExecutorBuilder value)
-        {
-            IRequestExecutorBuilder var = value;            
-            var.AddType<Query>();
-            return value;
+        public static IRequestExecutorBuilder RegisterGraphQLTypes(this IRequestExecutorBuilder grapgQLBuilder)
+        {            
+            grapgQLBuilder.AddQueryType<Query>().AddTypeExtension<ProjectQuery>();
+            return grapgQLBuilder;
         }
     }
     

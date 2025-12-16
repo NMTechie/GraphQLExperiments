@@ -15,5 +15,6 @@
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\GaphQL.Core\GraphQL.Application.csproj" />
+    <ProjectReference Include="..\GraphQL.Domain\GraphQL.Domain.csproj" />
   </ItemGroup>
 </Project>

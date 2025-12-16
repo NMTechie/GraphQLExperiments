@@ -10,4 +10,8 @@
     <PackageReference Include="HotChocolate.Types" Version="15.1.11" />
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\GraphQL.Domain\GraphQL.Domain.csproj" />
+  </ItemGroup>
+
 </Project>
