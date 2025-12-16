@@ -4,7 +4,7 @@ using HotChocolate.Types;
 
 namespace GraphQL.Application.DTO.GraphQLTypes
 {    
-    public record Query(ICleanArchGraphQLQuery graphQLUseCase)
+    public class Query(ICleanArchGraphQLQuery graphQLUseCase)
     {
         public string SayHello(string greetings="Nilesh") => $"Hello, {greetings}!";
 
