@@ -5,16 +5,16 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace GraphQL.Application.UseCases.AboutTask
+namespace GraphQL.Application.UseCases.Projects
 {
-    public class HandlingofDataForProject(IGraphQLProjectRepository projectRepo) : IHandlingofDataForProject
+    public class HandleProjectQueries(IGraphQLProjectRepository projectRepo) : IHandleProjectQueries
     {
         public string GetProjects()
         {
             return projectRepo.GetProjectsDetails().ToString();
         }
     }
-    public interface IHandlingofDataForProject
+    public interface IHandleProjectQueries
     {
         public string GetProjects();
     }

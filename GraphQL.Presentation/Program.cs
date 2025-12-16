@@ -1,4 +1,4 @@
-using GraphQL.Application.DTO.GraphQLTypes;
+using GraphQL.Application;
 using GraphQL.Presentation.Helper;
 using GraphQL.Infrastructure.Persistence;
 

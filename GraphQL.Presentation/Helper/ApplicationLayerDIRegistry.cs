@@ -7,7 +7,7 @@ namespace GraphQL.Presentation.Helper
 {
     public static class ApplicationLayerDIRegistry
     {
-        public static IServiceCollection AddApplicationLayer(
+        public static IServiceCollection AddApplicationLayer1(
         this IServiceCollection services,
         IConfiguration configuration)
         {           

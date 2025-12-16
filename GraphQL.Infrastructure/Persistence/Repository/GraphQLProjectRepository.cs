@@ -21,7 +21,7 @@ namespace GraphQL.Infrastructure.Persistence.Repository
         {
             switch (typeof(T).Name)
             {
-                case nameof(Project):
+                case nameof(ProjectAgg):
                     var projectList = new List<ProjectAgg>();
                     foreach (var project in projects)
                     {

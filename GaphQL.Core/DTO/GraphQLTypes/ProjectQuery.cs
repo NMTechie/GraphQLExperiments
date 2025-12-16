@@ -1,4 +1,4 @@
-﻿using GraphQL.Application.UseCases.AboutTask;
+﻿using GraphQL.Application.UseCases.Projects;
 using HotChocolate;
 using HotChocolate.Types;
 using System;
@@ -10,7 +10,7 @@ using System.Threading.Tasks;
 namespace GraphQL.Application.DTO.GraphQLTypes
 {
     [ExtendObjectType(typeof(Query))]
-    public class ProjectQuery(IHandlingofDataForProject projectUseCases)
+    public class ProjectQuery(IHandleProjectQueries projectUseCases)
     {
         public string GetProjects() =>
             projectUseCases.GetProjects();

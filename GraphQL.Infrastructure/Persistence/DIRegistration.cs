@@ -19,9 +19,10 @@ namespace GraphQL.Infrastructure.Persistence
         IConfiguration configuration)
         {
             services.AddDbContext<ExperimentDbContext>(options =>
-                options.UseSqlServer(configuration.GetConnectionString("Default")));
+                options.UseSqlServer(configuration.GetConnectionString("DefaultConnection")));
 
             services.AddScoped<IGraphQLQueryRepository, GraphQLQueryRepository>();
+            services.AddScoped<IGraphQLProjectRepository, GraphQLProjectRepository>();
 
             return services;
         }
