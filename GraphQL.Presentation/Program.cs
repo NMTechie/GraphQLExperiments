@@ -1,6 +1,6 @@
 using GraphQL.Application;
-using GraphQL.Presentation.Helper;
 using GraphQL.Infrastructure.Persistence;
+using GraphQL.Presentation.GraphQL;
 
 
 var builder = WebApplication.CreateBuilder(args);

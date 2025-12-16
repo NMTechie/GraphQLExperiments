@@ -1,8 +1,6 @@
-﻿using GraphQL.Application.Services;
-using GraphQL.Application.UseCases.CleanArchCallChain;
-using HotChocolate.Types;
+﻿using GraphQL.Application.UseCases.CleanArchCallChain;
 
-namespace GraphQL.Application.DTO.GraphQLTypes
+namespace GraphQL.Presentation.GraphQL.GraphQLTypes
 {
     
     public class Query(ICleanArchGraphQLQuery graphQLUseCase)

@@ -15,4 +15,8 @@
     <ProjectReference Include="..\GraphQL.Infrastructure\GraphQL.Infrastructure.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Helper\" />
+  </ItemGroup>
+
 </Project>

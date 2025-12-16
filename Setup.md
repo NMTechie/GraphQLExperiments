@@ -24,6 +24,10 @@ Need to cover this
 https://www.youtube.com/watch?v=YL07NyBXC7M
 https://www.youtube.com/watch?v=iOQ74eYU2U4&list=PLA8ZIAm2I03g9z705U3KWJjTv0Nccw9pj
 
+In Hot Chocolate 15, we rethought and rewrote the GreenDonut (DataLoader) implementation and 
+introduced some new packages that provide a few primitives to pass between layers while keeping 
+them isolated.(https://chillicream.com/blog/2025/02/01/hot-chocolate-15)
+
 ============ Setting up the Entity Framework in new Project =============
 Microsoft.EntityFrameworkCore (max version compatible with .net 8 is 9.0.11)
 Microsoft.EntityFrameworkCore.Tools (max version compatible with .net 8 is 9.0.11)

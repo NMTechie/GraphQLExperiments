@@ -1,9 +1,9 @@
-﻿using GraphQL.Application.DTO.GraphQLTypes;
+﻿using GraphQL.Presentation.GraphQL.GraphQLTypes;
 using HotChocolate.Execution.Configuration;
 
-namespace GraphQL.Presentation.Helper
+namespace GraphQL.Presentation.GraphQL
 {
-    public static class GraphQLHelpers
+    public static class GraphQLRegistration
     {        
         public static IRequestExecutorBuilder RegisterGraphQLTypes(this IRequestExecutorBuilder grapgQLBuilder)
         {            
