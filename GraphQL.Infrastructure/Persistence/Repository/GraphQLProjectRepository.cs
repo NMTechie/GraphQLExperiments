@@ -2,9 +2,11 @@
 using GraphQL.Domain.Aggregates;
 using GraphQL.Domain.Entities;
 using GraphQL.Infrastructure.Persistence.Sqlserver;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Cryptography;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -15,6 +17,15 @@ namespace GraphQL.Infrastructure.Persistence.Repository
         public List<ProjectAgg> GetProjectsDetails()
         {
             return MapToDomainObejct<ProjectAgg>(experimentDbContext.Projects.ToList());
+        }
+        public List<ProjectAgg> GetProjectsByFilterCriteria(int? organizationId, int? departmentId)
+        {
+            var queryResult = experimentDbContext.Projects
+                                                 .Where(p =>
+                                                  (departmentId == null || p.DeptId == departmentId) &&
+                                                  (organizationId == null || p.Dept.OrgId == organizationId)
+                                                 );
+            return MapToDomainObejct<ProjectAgg>(queryResult.ToList());
         }
 
         private List<T> MapToDomainObejct<T>(List<Project> projects)

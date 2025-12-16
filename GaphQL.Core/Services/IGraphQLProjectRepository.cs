@@ -10,5 +10,6 @@ namespace GraphQL.Application.Services
     public interface IGraphQLProjectRepository
     {
         public List<ProjectAgg> GetProjectsDetails();
+        public List<ProjectAgg> GetProjectsByFilterCriteria(int? organizationId, int? departmentId);
     }
 }
