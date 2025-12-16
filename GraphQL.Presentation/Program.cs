@@ -15,7 +15,8 @@ builder.Services.AddApplicationLayer(builder.Configuration);
 //builder.Services.AddGraphQLServer().AddTypes(new[] { typeof(Query) });
 //OR
 //builder.Services.AddGraphQLServer().AddQueryType<Query>();
-builder.Services.AddGraphQLServer().RegisterGraphQLTypes();
+//builder.Services.AddGraphQLServer().RegisterGraphQLTypes();
+builder.Services.RegisterGraphQLDependencies();
 
 //Wiring the DI for SQLServer DbContext through Infrastructure layer putting
 //my presentation layer to be clean

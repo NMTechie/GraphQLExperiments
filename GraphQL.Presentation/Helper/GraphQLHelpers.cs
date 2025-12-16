@@ -10,6 +10,13 @@ namespace GraphQL.Presentation.Helper
             grapgQLBuilder.AddQueryType<Query>().AddTypeExtension<ProjectQuery>();
             return grapgQLBuilder;
         }
+        public static IServiceCollection RegisterGraphQLDependencies(this IServiceCollection services)
+        {
+            services.AddScoped<Query>();
+            services.AddScoped<ProjectQuery>();
+            services.AddGraphQLServer().AddQueryType<Query>().AddTypeExtension<ProjectQuery>();
+            return services;
+        }
     }
     
 }

@@ -12,15 +12,20 @@ using System.Threading.Tasks;
 
 namespace GraphQL.Infrastructure.Persistence.Repository
 {
-    public class GraphQLProjectRepository(ExperimentDbContext experimentDbContext) : IGraphQLProjectRepository
+    public class GraphQLProjectRepository : IGraphQLProjectRepository
     {
+        private readonly ExperimentDbContext _experimentDbContext;
+        public GraphQLProjectRepository(ExperimentDbContext experimentDbContext)
+        {
+            _experimentDbContext = experimentDbContext;
+        }
         public List<ProjectAgg> GetProjectsDetails()
         {
-            return MapToDomainObejct<ProjectAgg>(experimentDbContext.Projects.ToList());
+            return MapToDomainObejct<ProjectAgg>(_experimentDbContext.Projects.ToList());
         }
         public List<ProjectAgg> GetProjectsByFilterCriteria(int? organizationId, int? departmentId)
         {
-            var queryResult = experimentDbContext.Projects
+            var queryResult = _experimentDbContext.Projects
                                                  .Where(p =>
                                                   (departmentId == null || p.DeptId == departmentId) &&
                                                   (organizationId == null || p.Dept.OrgId == organizationId)
