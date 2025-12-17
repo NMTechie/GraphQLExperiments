@@ -3,6 +3,7 @@ using GraphQL.Domain.Aggregates;
 using GraphQL.Domain.Entities;
 using GraphQL.Infrastructure.Persistence.Sqlserver;
 using GreenDonut.Data;
+using GraphQL.Common.LeakEFCoreClasses;
 
 namespace GraphQL.Infrastructure.Persistence.Repository
 {
@@ -17,15 +18,15 @@ namespace GraphQL.Infrastructure.Persistence.Repository
         {
             return MapToDomainObejct<ProjectAgg>(_experimentDbContext.Projects.ToList());
         }
-        public List<ProjectAgg> GetProjectsByFilterCriteria(int? organizationId, int? departmentId, QueryContext<ProjectAgg> querycontext)
+        public List<Project> GetProjectsByFilterCriteria(int? organizationId, int? departmentId, QueryContext<Project> querycontext)
         {
-            var queryResult = _experimentDbContext.Projects
-                                                 //.With(querycontext.Select(p=> p)) cannot do this directly
+            var queryResult = _experimentDbContext.Projects                                                 
                                                  .Where(p =>
-                                                  (departmentId == null || p.DeptId == departmentId) &&
+                                                  (departmentId == null || p.Dept.DeptId == departmentId) &&
                                                   (organizationId == null || p.Dept.OrgId == organizationId)
                                                  );
-            return MapToDomainObejct<ProjectAgg>(queryResult.ToList());
+            
+            return queryResult.Select(querycontext.Selector).ToList();
         }
 
         private List<T> MapToDomainObejct<T>(List<Project> projects)

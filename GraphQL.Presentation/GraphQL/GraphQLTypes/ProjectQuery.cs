@@ -1,7 +1,6 @@
 ﻿using GraphQL.Application.UseCases.Projects;
 using GraphQL.Domain.Aggregates;
-using GraphQL.Domain.Entities;
-using GraphQL.Infrastructure.Persistence.Sqlserver;
+using GraphQL.Common.LeakEFCoreClasses;
 using GreenDonut.Data;
 
 namespace GraphQL.Presentation.GraphQL.GraphQLTypes
@@ -12,9 +11,9 @@ namespace GraphQL.Presentation.GraphQL.GraphQLTypes
     {
         public List<ProjectAgg> GetProjects(IHandleProjectQueries projectUseCases) =>
             projectUseCases.GetProjects();
-        public List<ProjectAgg> GetProjectsWithFilter(int? organizationId,int? DepartmentId, 
+        public List<Project> GetProjectsWithFilter(int? organizationId,int? departmentId, 
                                                       IHandleProjectQueries projectUseCases,
-                                                      QueryContext<int> queryContext) =>
-            projectUseCases.GetProjectsByFilterCriteria(organizationId,DepartmentId);
+                                                      QueryContext<Project> queryContext) =>
+            projectUseCases.GetProjectsByFilterCriteria(organizationId, departmentId, queryContext);
     }
 }

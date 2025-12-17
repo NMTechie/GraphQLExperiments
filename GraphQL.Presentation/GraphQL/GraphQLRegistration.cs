@@ -22,7 +22,11 @@ namespace GraphQL.Presentation.GraphQL
             services.AddScoped<ProjectQuery>();
             */
             services.AddScoped<Query>();
-            services.AddGraphQLServer().AddQueryType<Query>().AddTypeExtension<ProjectQuery>();
+            services.AddGraphQLServer()
+                .AddFiltering()
+                .AddSorting()                
+                .AddQueryType<Query>()
+                .AddTypeExtension<ProjectQuery>();
             return services;
         }
     }

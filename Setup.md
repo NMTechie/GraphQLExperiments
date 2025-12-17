@@ -36,6 +36,15 @@ Now How could I use the querycontext here to control the sql query as per the se
 You’re describing a problem most teams hit when combining:--- so this is not easy ..... further what I realise that this fetching 
 problem going to be solved between your graphQL server and DB ..... that barely maters 
 
+Further if you need to use QueryContext then need to install 
+Hotchocolate.data package and version should be same across
+
+Now as I dive deep it is getting clear that if you use graphQL the your underlying data structure is coupled with 
+client exposure. The hotchocolate with its greendonut data provider implementation is pretty coupled with EFCore entites 
+for taking the best advantage of it. In case of clean architecture this is going little messy as EFCore entities now been treated as 
+your domain entities as well. This is fine when you expose those for data sharing mechanism internally. But definitely goign to be 
+cumbersome when you need to expose different data structure to clients.
+
 ============ Setting up the Entity Framework in new Project =============
 Microsoft.EntityFrameworkCore (max version compatible with .net 8 is 9.0.11)
 Microsoft.EntityFrameworkCore.Tools (max version compatible with .net 8 is 9.0.11)

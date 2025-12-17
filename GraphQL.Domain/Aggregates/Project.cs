@@ -21,6 +21,8 @@ namespace GraphQL.Domain.Aggregates
         private readonly List<TaskEnt> _tasks = new List<TaskEnt>();
         public IReadOnlyCollection<TaskEnt> Tasks => _tasks.AsReadOnly();
 
+        public ProjectAgg() { }
+
         public ProjectAgg(string projectCode, string projectName)
         {
             ProjectCode = projectCode;

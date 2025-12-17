@@ -4,7 +4,7 @@ using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using Microsoft.EntityFrameworkCore;
 
-namespace GraphQL.Infrastructure.Persistence.Sqlserver;
+namespace GraphQL.Common.LeakEFCoreClasses;
 
 [Table("organization")]
 [Index("OrgCode", Name = "UQ__organiza__68B12E5C51A336A8", IsUnique = true)]

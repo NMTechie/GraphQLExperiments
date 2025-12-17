@@ -4,7 +4,7 @@ using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using Microsoft.EntityFrameworkCore;
 
-namespace GraphQL.Infrastructure.Persistence.Sqlserver;
+namespace GraphQL.Common.LeakEFCoreClasses;
 
 [Table("department")]
 public partial class Department

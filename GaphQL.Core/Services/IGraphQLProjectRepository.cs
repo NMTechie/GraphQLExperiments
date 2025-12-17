@@ -1,16 +1,12 @@
 ﻿using GraphQL.Domain.Aggregates;
 using GreenDonut.Data;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using GraphQL.Common.LeakEFCoreClasses;
 
 namespace GraphQL.Application.Services
 {
     public interface IGraphQLProjectRepository
     {
         public List<ProjectAgg> GetProjectsDetails();
-        public List<ProjectAgg> GetProjectsByFilterCriteria(int? organizationId, int? departmentId, QueryContext<ProjectAgg> querycontext);
+        public List<Project> GetProjectsByFilterCriteria(int? organizationId, int? departmentId, QueryContext<Project> querycontext);
     }
 }

@@ -4,7 +4,7 @@ using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using Microsoft.EntityFrameworkCore;
 
-namespace GraphQL.Infrastructure.Persistence.Sqlserver;
+namespace GraphQL.Common.LeakEFCoreClasses;
 
 [Table("project")]
 [Index("ProjectCode", Name = "UQ__project__891B3A6FAEF18601", IsUnique = true)]

@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using Microsoft.EntityFrameworkCore;
+using GraphQL.Common.LeakEFCoreClasses;
 
 namespace GraphQL.Infrastructure.Persistence.Sqlserver;
 
@@ -19,7 +20,7 @@ public partial class ExperimentDbContext : DbContext
 
     public virtual DbSet<Project> Projects { get; set; }
 
-    public virtual DbSet<Task> Tasks { get; set; }
+    public virtual DbSet<Common.LeakEFCoreClasses.Task> Tasks { get; set; }
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
@@ -63,7 +64,7 @@ public partial class ExperimentDbContext : DbContext
                 .HasConstraintName("FK_Project_Department");
         });
 
-        modelBuilder.Entity<Task>(entity =>
+        modelBuilder.Entity<Common.LeakEFCoreClasses.Task>(entity =>
         {
             entity.HasKey(e => e.TaskId).HasName("PK__task__0492148D2ED53234");
 
