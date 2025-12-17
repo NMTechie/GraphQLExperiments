@@ -28,6 +28,14 @@ In Hot Chocolate 15, we rethought and rewrote the GreenDonut (DataLoader) implem
 introduced some new packages that provide a few primitives to pass between layers while keeping 
 them isolated.(https://chillicream.com/blog/2025/02/01/hot-chocolate-15)
 
+now I have an intersting issue in reference to clean archiyecture with greendonut.data querycontext ..... 
+My presentaon layer where graphql queries are defined only knows about domain entities however in the dbcontext in the 
+infrstructire layer it operated on the DB entities ..... 
+Now How could I use the querycontext here to control the sql query as per the selection of the fields by the clients
+[Ans]-> This is an excellent and advanced Clean Architecture/GraphQL/GreenDonut question.
+You’re describing a problem most teams hit when combining:--- so this is not easy ..... further what I realise that this fetching 
+problem going to be solved between your graphQL server and DB ..... that barely maters 
+
 ============ Setting up the Entity Framework in new Project =============
 Microsoft.EntityFrameworkCore (max version compatible with .net 8 is 9.0.11)
 Microsoft.EntityFrameworkCore.Tools (max version compatible with .net 8 is 9.0.11)

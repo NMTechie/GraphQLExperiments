@@ -1,10 +1,7 @@
 ﻿using GraphQL.Application.Services;
 using GraphQL.Domain.Aggregates;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using GraphQL.Domain.Entities;
+using GreenDonut.Data;
 
 namespace GraphQL.Application.UseCases.Projects
 {
@@ -15,14 +12,21 @@ namespace GraphQL.Application.UseCases.Projects
             return projectRepo.GetProjectsDetails();
         }
 
+        public List<ProjectAgg> GetProjectsByFilterCriteria(int? organizationId, int? departmentId, QueryContext<OrganizationEnt> querycontext)
+        {
+            //return projectRepo.GetProjectsByFilterCriteria(organizationId, departmentId,querycontext);
+            return projectRepo.GetProjectsDetails();
+        }
         public List<ProjectAgg> GetProjectsByFilterCriteria(int? organizationId, int? departmentId)
         {
-            return projectRepo.GetProjectsByFilterCriteria(organizationId, departmentId);
+            //return projectRepo.GetProjectsByFilterCriteria(organizationId, departmentId,querycontext);
+            return projectRepo.GetProjectsDetails();
         }
     }
     public interface IHandleProjectQueries
     {
         public List<ProjectAgg> GetProjects();
+        public List<ProjectAgg> GetProjectsByFilterCriteria(int? organizationId, int? DepartmentId, QueryContext<OrganizationEnt> querycontext);
         public List<ProjectAgg> GetProjectsByFilterCriteria(int? organizationId, int? DepartmentId);
     }
 }

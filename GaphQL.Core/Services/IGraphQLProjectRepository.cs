@@ -1,4 +1,5 @@
 ﻿using GraphQL.Domain.Aggregates;
+using GreenDonut.Data;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -10,6 +11,6 @@ namespace GraphQL.Application.Services
     public interface IGraphQLProjectRepository
     {
         public List<ProjectAgg> GetProjectsDetails();
-        public List<ProjectAgg> GetProjectsByFilterCriteria(int? organizationId, int? departmentId);
+        public List<ProjectAgg> GetProjectsByFilterCriteria(int? organizationId, int? departmentId, QueryContext<ProjectAgg> querycontext);
     }
 }
