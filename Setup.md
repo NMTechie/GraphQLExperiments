@@ -50,6 +50,16 @@ Microsoft.EntityFrameworkCore (max version compatible with .net 8 is 9.0.11)
 Microsoft.EntityFrameworkCore.Tools (max version compatible with .net 8 is 9.0.11)
 Microsoft.EntityFrameworkCore.SQLServer (max version compatible with .net 8 is 9.0.11)
 
+All the above three is required to run the scaffolding command
 Scaffold-DbContext "Server=localhost,1433;Database=Experiments;Trusted_Connection=True;MultipleActiveResultSets=true;TrustServerCertificate=True" Microsoft.EntityFrameworkCore.SqlServer -Project HelperConsoleApp -StartupProject HelperConsoleApp -OutputDir Persistence -Context ExperimentDbContext -DataAnnotations -NoOnConfiguring -namespace GraphQL.Infrastructure.Persistence.Sqlserver
 
-Using the helper console app for clean EF Core scaffolding
+Using the helper console app for clean EF Core scaffolding. After understnading the how dependencies resolved in build time through nuget and
+how actually dlls are copied to the executable project, It is evident that the presentation layer wil ultimately have all the dlls. 
+Now, instead of helper console app I can only 
+- have the infrastructure layer with all the EFCore dependencies -> But that pollutes the infrastructure layer with unnecessary dependencies
+                                                                    with Microsoft.EntityFrameworkCore.Tools and Microsoft.EntityFrameworkCore.Design
+                                                                    which is not required for DB first approach.
+- have the common layer with all the EFCore dependencies -> But that pollutes the common layer with unnecessary dependencies
+                                                                    with Microsoft.EntityFrameworkCore.Tools and Microsoft.EntityFrameworkCore.Design
+                                                                    which is then going to be available across all layers which is also bad. 
+Thus, I thought of having a helper console app only for scaffolding purposes to minimize unnecessary dependencies and things clean.

@@ -18,15 +18,15 @@ namespace GraphQL.Infrastructure.Persistence.Repository
         {
             return MapToDomainObejct<ProjectAgg>(_experimentDbContext.Projects.ToList());
         }
-        public List<Project> GetProjectsByFilterCriteria(int? organizationId, int? departmentId, QueryContext<Project> querycontext)
+        public List<Project> GetProjectsByFilterCriteria(int? organizationId, int? departmentId, QueryContext<Project> queryContext)
         {
             var queryResult = _experimentDbContext.Projects                                                 
                                                  .Where(p =>
                                                   (departmentId == null || p.Dept.DeptId == departmentId) &&
                                                   (organizationId == null || p.Dept.OrgId == organizationId)
-                                                 );
-            
-            return queryResult.Select(querycontext.Selector).ToList();
+                                                 ).With(queryContext);
+
+            return queryResult.ToList();
         }
 
         private List<T> MapToDomainObejct<T>(List<Project> projects)
