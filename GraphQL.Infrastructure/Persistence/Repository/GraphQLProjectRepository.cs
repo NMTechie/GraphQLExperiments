@@ -10,13 +10,15 @@ namespace GraphQL.Infrastructure.Persistence.Repository
     public class GraphQLProjectRepository : IGraphQLProjectRepository
     {
         private readonly ExperimentDbContext _experimentDbContext;
-        public GraphQLProjectRepository(ExperimentDbContext experimentDbContext)
+        private readonly NewExperimentDBContext _newExperimentDbContext;
+        public GraphQLProjectRepository(ExperimentDbContext experimentDbContext,NewExperimentDBContext newExperimentDBContext)
         {
             _experimentDbContext = experimentDbContext;
+            _newExperimentDbContext = newExperimentDBContext;
         }
-        public List<ProjectAgg> GetProjectsDetails()
+        public List<ProjectAggregate> GetProjectsDetails()
         {
-            return MapToDomainObejct<ProjectAgg>(_experimentDbContext.Projects.ToList());
+            return MapToDomainObejct<ProjectAggregate>(_experimentDbContext.Projects.ToList());
         }
         public List<Project> GetProjectsByFilterCriteria(int? organizationId, int? departmentId, QueryContext<Project> queryContext)
         {
@@ -28,24 +30,31 @@ namespace GraphQL.Infrastructure.Persistence.Repository
 
             return queryResult.ToList();
         }
+        public IQueryable<ProjectAggregate> GetProjectsDetailsWithNewDBContext()
+        {
+            return _newExperimentDbContext.Projects.AsQueryable();
+        }
 
         private List<T> MapToDomainObejct<T>(List<Project> projects)
         {
             switch (typeof(T).Name)
             {
-                case nameof(ProjectAgg):
-                    var projectList = new List<ProjectAgg>();
+                case nameof(ProjectAggregate):
+                    var projectList = new List<ProjectAggregate>();
                     foreach (var project in projects)
                     {
-                        var projectAgg = new ProjectAgg(project.ProjectCode, project.ProjectName)
+                        var projectAgg = new ProjectAggregate
                         {
                             // Map other properties as needed
+                            ProjectName = project.ProjectName,
+                            StartDate = project.StartDate,
+                            EndDate = project.EndDate
                         };
                         // Map tasks
                         //var tasks = experimentDbContext.Tasks.Where(t => t.ProjectId == project.ProjectId).ToList();
                         foreach (var task in project.Tasks)
                         {
-                            var taskEnt = new TaskEnt(task.TaskCode, task.Title, task.Status)
+                            var taskEnt = new TaskEntity
                             {
                                 // Map other properties as needed
                             };
@@ -53,7 +62,10 @@ namespace GraphQL.Infrastructure.Persistence.Repository
                             //var comments = experimentDbContext.Comments.Where(c => c.TaskId == task.TaskId).ToList();
                             foreach (var comment in task.Comments)
                             {
-                                var commentEnt = new CommentEnt(comment.AuthorName, comment.CommentText);
+                                var commentEnt = new CommentEntity()
+                                {
+                                    // Map other properties as needed
+                                };
                                 taskEnt.AddComment(commentEnt);
                             }
                             projectAgg.AddTask(taskEnt);

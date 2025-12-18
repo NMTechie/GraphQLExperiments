@@ -7,11 +7,15 @@ namespace GraphQL.Application.UseCases.Projects
 {
     public class HandleProjectQueries(IGraphQLProjectRepository projectRepo) : IHandleProjectQueries
     {
-        public List<ProjectAgg> GetProjects()
+        public List<ProjectAggregate> GetProjects()
         {
             return projectRepo.GetProjectsDetails();
         }
-        public List<ProjectAgg> GetProjectsByFilterCriteria(int? organizationId, int? departmentId)
+        public IQueryable<ProjectAggregate> GetProjectsDetailsWithNewDBContext()
+        {
+            return projectRepo.GetProjectsDetailsWithNewDBContext();
+        }
+        public List<ProjectAggregate> GetProjectsByFilterCriteria(int? organizationId, int? departmentId)
         {
             return projectRepo.GetProjectsDetails();
         }
@@ -24,8 +28,9 @@ namespace GraphQL.Application.UseCases.Projects
     }
     public interface IHandleProjectQueries
     {
-        public List<ProjectAgg> GetProjects();
-        public List<ProjectAgg> GetProjectsByFilterCriteria(int? organizationId, int? DepartmentId);
+        public List<ProjectAggregate> GetProjects();
+        public IQueryable<ProjectAggregate> GetProjectsDetailsWithNewDBContext();
+        public List<ProjectAggregate> GetProjectsByFilterCriteria(int? organizationId, int? DepartmentId);
         public List<Project> GetProjectsByFilterCriteria(int? organizationId, int? DepartmentId, QueryContext<Project> querycontext);
         
     }

@@ -1,39 +1,50 @@
 ﻿using GraphQL.Domain.Entities;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace GraphQL.Domain.Aggregates
 {
-    public class ProjectAgg
+    [Table("project")]
+    public class ProjectAggregate
     {
-        public int ProjectId { get; private set; }
-        public string ProjectCode { get; private set; }
-        public string ProjectName { get; private set; }
-        public DateTime? StartDate { get; private set; }
-        public DateTime? EndDate { get; private set; }
-        public decimal? Budget { get; private set; }
-        public DateTime CreatedAt { get; private set; }
+        [Key]
+        [Column("project_id")]
+        public int ProjectId { get; set; }
 
-        // Aggregate: A project contains multiple tasks
-        private readonly List<TaskEnt> _tasks = new List<TaskEnt>();
-        public IReadOnlyCollection<TaskEnt> Tasks => _tasks.AsReadOnly();
+        [Column("dept_id")]
+        public int DeptId { get; set; }
 
-        public ProjectAgg() { }
+        [Column("project_code")]
+        [StringLength(30)]
+        public string? ProjectCode { get; set; }
 
-        public ProjectAgg(string projectCode, string projectName)
-        {
-            ProjectCode = projectCode;
-            ProjectName = projectName;
-            CreatedAt = DateTime.UtcNow;
-        }
+        [Column("project_name")]
+        [StringLength(150)]
+        public string? ProjectName { get; set; }
 
-        public void AddTask(TaskEnt task)
+        [Column("start_date")]
+        public DateOnly? StartDate { get; set; }
+
+        [Column("end_date")]
+        public DateOnly? EndDate { get; set; }
+
+        [Column("budget", TypeName = "decimal(12, 2)")]
+        public decimal? Budget { get; set; }
+
+        [Column("created_at", TypeName = "datetime")]
+        public DateTime CreatedAt { get; set; }
+
+        [ForeignKey("DeptId")]
+        [InverseProperty("Projects")]
+        public virtual DepartmentEntity Dept { get; set; } = null!;
+
+        [InverseProperty("Project")]
+        public virtual ICollection<TaskEntity> Tasks { get; set; } = new List<TaskEntity>();
+
+        public void AddTask(TaskEntity task)
         {
             if (task == null) throw new ArgumentNullException(nameof(task));
-            _tasks.Add(task);
+            Tasks.Add(task);
         }
     }
 }

@@ -1,19 +1,38 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using GraphQL.Domain.Aggregates;
+using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace GraphQL.Domain.Entities
 {
-    public class DepartmentEnt
+    [Table("department")]
+    public class DepartmentEntity
     {
-        public int DeptId { get; private set; }
-        public string DeptCode { get; private set; }
-        public string DeptName { get; private set; }
-        public string HeadEmail { get; private set; }
-        public DateTime CreatedAt { get; private set; }
+        [Key]
+        [Column("dept_id")]
+        public int DeptId { get; set; }
+        [Column("org_id")]
+        public int OrgId { get; set; }
 
-        // Optionally, could add navigation property for Projects
+        [Column("dept_code")]
+        [StringLength(20)]
+        public string? DeptCode { get; set; }
+
+        [Column("dept_name")]
+        [StringLength(100)]
+        public string DeptName { get; set; } = null!;
+
+        [Column("head_email")]
+        [StringLength(100)]
+        public string? HeadEmail { get; set; }
+
+        [Column("created_at", TypeName = "datetime")]
+        public DateTime CreatedAt { get; set; }
+
+        [ForeignKey("OrgId")]
+        [InverseProperty("Departments")]
+        public virtual OrganizationEntity Org { get; set; } = null!;
+
+        [InverseProperty("Dept")]
+        public virtual ICollection<ProjectAggregate> Projects { get; set; } = new List<ProjectAggregate>();
     }
 }

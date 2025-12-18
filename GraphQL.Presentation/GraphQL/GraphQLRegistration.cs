@@ -23,8 +23,9 @@ namespace GraphQL.Presentation.GraphQL
             */
             services.AddScoped<Query>();
             services.AddGraphQLServer()
-                .AddFiltering()
-                .AddSorting()                
+                .AddProjections()
+                .AddSorting()
+                .AddFiltering()                                
                 .AddQueryType<Query>()
                 .AddTypeExtension<ProjectQuery>();
             return services;
