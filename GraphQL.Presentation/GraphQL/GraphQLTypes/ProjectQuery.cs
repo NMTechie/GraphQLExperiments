@@ -11,9 +11,10 @@ namespace GraphQL.Presentation.GraphQL.GraphQLTypes
     {
         public List<ProjectAgg> GetProjects(IHandleProjectQueries projectUseCases) =>
             projectUseCases.GetProjects();
+        [UseFiltering]
         public List<Project> GetProjectsWithFilter(int? organizationId,int? departmentId, 
                                                       IHandleProjectQueries projectUseCases,
-                                                      QueryContext<Project> queryContext) =>
+                                                      QueryContext<Project> queryContext) =>            
             projectUseCases.GetProjectsByFilterCriteria(organizationId, departmentId, queryContext);
     }
 }

@@ -19,7 +19,15 @@ Need to cover this
 🔹 Sample GraphQL queries/mutations
 🔹 SQL Server views for GraphQL
 🔹 Pagination strategies (offset-based, cursor-based)
+[so in nutshell the hotchocolate cursor pagination takes overhead from developer of forming sql queries for seek 
+and also kind of making query dynamic automatically , but if your DB index is not optimized then it ultimately boils 
+down to the fact to optimize your DB index based on your client data search mechanism
+
+having said that it is not that useful as the publisher of data still need to control how the DB need to be optimized and 
+for obvious reason publisher want to restrict how you could query with a tradeoff between flexibility vs response time 
+]
 🔹 Error handling in GraphQL
+🔹 Mapping between Domain types and EFCore Entity types with expression builder to remove the leak/pollution about strcitness of clean arch
 
 https://www.youtube.com/watch?v=YL07NyBXC7M
 https://www.youtube.com/watch?v=iOQ74eYU2U4&list=PLA8ZIAm2I03g9z705U3KWJjTv0Nccw9pj
