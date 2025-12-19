@@ -35,6 +35,15 @@ namespace GraphQL.Infrastructure.Persistence.Repository
             return _newExperimentDbContext.Projects.AsQueryable();
         }
 
+        #region WriteOperations
+        public ProjectAggregate CreateProject(ProjectAggregate project)
+        {
+            _newExperimentDbContext.Projects.Add(project.PrepareForPersistance());
+            _newExperimentDbContext.SaveChanges();
+            return project;
+        }
+        #endregion
+
         private List<T> MapToDomainObejct<T>(List<Project> projects)
         {
             switch (typeof(T).Name)
@@ -47,7 +56,7 @@ namespace GraphQL.Infrastructure.Persistence.Repository
                         {
                             // Map other properties as needed
                             ProjectName = project.ProjectName,
-                            StartDate = project.StartDate,
+                            StartDate = project.StartDate??DateOnly.FromDateTime(DateTime.Now.Date),
                             EndDate = project.EndDate
                         };
                         // Map tasks

@@ -22,12 +22,21 @@ namespace GraphQL.Presentation.GraphQL
             services.AddScoped<ProjectQuery>();
             */
             services.AddScoped<Query>();
+            services.AddScoped<ProjectMutation>();
+            /*The above scoped resgistration for graphQL types is required for each top level types
+            Query is my top level type [it is a querytype] and ProjectQuery is annotated as [ExtendObjectType(typeof(Query))]
+            thus ProjectQuery type is not added as AddScoped
+            However look at the ProjectMutation, it is itself a root type thus registering it as AddScoped
+            if I have another mutation as extendedobject typeof ProjectMutation then that was not needed as AddScoped
+            ****** Also the root type does not required to be decorated with attributes like [QueryType] or [MutationType]
+            */
             services.AddGraphQLServer()
                 .AddProjections()
                 .AddSorting()
                 .AddFiltering()                                
-                .AddQueryType<Query>()
-                .AddTypeExtension<ProjectQuery>();
+                .AddQueryType<Query>()                
+                .AddTypeExtension<ProjectQuery>()
+                .AddMutationType<ProjectMutation>();
             return services;
         }
     }

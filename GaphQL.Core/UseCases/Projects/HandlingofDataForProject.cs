@@ -34,4 +34,17 @@ namespace GraphQL.Application.UseCases.Projects
         public List<Project> GetProjectsByFilterCriteria(int? organizationId, int? DepartmentId, QueryContext<Project> querycontext);
         
     }
+
+    public interface IHandleProjectMutations
+    {
+        public ProjectAggregate CreateProject(ProjectAggregate project);
+    }
+
+    public class HandleProjectMutations(IGraphQLProjectRepository projectRepo) : IHandleProjectMutations
+    {
+        public ProjectAggregate CreateProject(ProjectAggregate project)
+        {
+            return projectRepo.CreateProject(project);
+        }
+    }
 }
