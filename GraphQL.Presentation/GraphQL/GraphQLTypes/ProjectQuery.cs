@@ -2,6 +2,7 @@
 using GraphQL.Domain.Aggregates;
 using GraphQL.Common.LeakEFCoreClasses;
 using GreenDonut.Data;
+using HotChocolate.Data.Filters;
 
 namespace GraphQL.Presentation.GraphQL.GraphQLTypes
 {
@@ -20,10 +21,22 @@ namespace GraphQL.Presentation.GraphQL.GraphQLTypes
 
 
         [UseProjection]
-        [UseFiltering]
+        [UseFiltering<ProjectAggregateFilterInputType>]
         [UseSorting]        
-        public IQueryable<ProjectAggregate> GetProjectsWithNewDBContext(int? organizationId, int? departmentId,
+        public IQueryable<ProjectAggregate> GetProjectsWithNewDBContext(
                                                       IHandleProjectQueries projectUseCases)=>
             projectUseCases.GetProjectsDetailsWithNewDBContext();
+    }
+
+    public class ProjectAggregateFilterInputType : FilterInputType<ProjectAggregate>
+    {
+        protected override void Configure(IFilterInputTypeDescriptor<ProjectAggregate> descriptor)
+        {
+            descriptor.BindFieldsExplicitly();
+            descriptor.Field(p => p.ProjectId);
+            descriptor.Field(p => p.ProjectCode);
+            descriptor.Field(p => p.DeptId);
+        }
+
     }
 }
