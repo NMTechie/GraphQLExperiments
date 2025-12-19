@@ -74,8 +74,8 @@ project will have empty tasks and comments list which is essentially true from b
 ---> Based on the nullabletypes definition GraphQL will undestand what is required and what is not during mutation.
 ---> Another consideration while working on the mution part. If our domain entity have some calculated fields or non animic i.e 
 has domain business logic behaviour then we should have a DTO for mutation input type rather than using the domain entity directly. 
-This way we can keep our client clean and not pushing to think about the domain logic. In our case, while writing this does not think
-of any such scenario so using domain entity directly.
+This way we can keep our client clean and not pushing to think about the domain logic. In our case, created date is field that can be a user
+input in any scenario but should be returned for viewing. Thus crerating a DTO for mutation input type makes sense to handle this.
 
 
 

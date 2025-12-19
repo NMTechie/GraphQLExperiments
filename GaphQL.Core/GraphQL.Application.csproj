@@ -16,8 +16,4 @@
     <ProjectReference Include="..\GraphQL.Domain\GraphQL.Domain.csproj" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="DTO\" />
-  </ItemGroup>
-
 </Project>

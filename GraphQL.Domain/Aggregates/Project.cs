@@ -46,11 +46,5 @@ namespace GraphQL.Domain.Aggregates
             if (task == null) throw new ArgumentNullException(nameof(task));
             Tasks?.Add(task);
         }
-
-        public ProjectAggregate PrepareForPersistance()
-        {
-            this.CreatedAt = DateTime.Now;
-            return this;
-        }
     }
 }

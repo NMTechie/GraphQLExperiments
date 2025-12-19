@@ -1,4 +1,5 @@
-﻿using GraphQL.Application.UseCases.Projects;
+﻿using GraphQL.Application.DTO;
+using GraphQL.Application.UseCases.Projects;
 using GraphQL.Domain.Aggregates;
 
 namespace GraphQL.Presentation.GraphQL.GraphQLTypes
@@ -6,17 +7,17 @@ namespace GraphQL.Presentation.GraphQL.GraphQLTypes
     
     public class ProjectMutation
     {
-        public ProjectAggregate CreateProject(ProjectAggregate project, IHandleProjectMutations projectMutations)
+        public ProjectAggregate CreateProject(CreateProject project, IHandleProjectMutations projectMutations)
         {
             return projectMutations.CreateProject(project);
         }
         public ProjectAggregate UpdateProject(ProjectAggregate project, IHandleProjectMutations projectMutations)
         {
-            return projectMutations.CreateProject(project);
+            return new ProjectAggregate();
         }
         public ProjectAggregate DeleteProject(int projectId, IHandleProjectMutations projectMutations)
         {
-            return projectMutations.CreateProject(new ProjectAggregate());
+            return new ProjectAggregate();
         }
     }
 }

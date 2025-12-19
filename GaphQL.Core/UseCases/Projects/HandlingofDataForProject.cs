@@ -2,6 +2,7 @@
 using GraphQL.Domain.Aggregates;
 using GraphQL.Common.LeakEFCoreClasses;
 using GreenDonut.Data;
+using GraphQL.Application.DTO;
 
 namespace GraphQL.Application.UseCases.Projects
 {
@@ -37,14 +38,14 @@ namespace GraphQL.Application.UseCases.Projects
 
     public interface IHandleProjectMutations
     {
-        public ProjectAggregate CreateProject(ProjectAggregate project);
+        public ProjectAggregate CreateProject(CreateProject project);
     }
 
-    public class HandleProjectMutations(IGraphQLProjectRepository projectRepo) : IHandleProjectMutations
+    public class HandleProjectMutations(IGraphQLProjectRepository projectRepo,IProjectDomainHydration projectDomainHydration) : IHandleProjectMutations
     {
-        public ProjectAggregate CreateProject(ProjectAggregate project)
+        public ProjectAggregate CreateProject(CreateProject project)
         {
-            return projectRepo.CreateProject(project);
+            return projectRepo.CreateProject(projectDomainHydration.PrepareForPersistance(project));
         }
     }
 }

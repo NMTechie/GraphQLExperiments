@@ -4,6 +4,7 @@ using GraphQL.Domain.Entities;
 using GraphQL.Infrastructure.Persistence.Sqlserver;
 using GreenDonut.Data;
 using GraphQL.Common.LeakEFCoreClasses;
+using Microsoft.EntityFrameworkCore;
 
 namespace GraphQL.Infrastructure.Persistence.Repository
 {
@@ -38,9 +39,18 @@ namespace GraphQL.Infrastructure.Persistence.Repository
         #region WriteOperations
         public ProjectAggregate CreateProject(ProjectAggregate project)
         {
-            _newExperimentDbContext.Projects.Add(project.PrepareForPersistance());
+            _newExperimentDbContext.Projects.Add(project);
             _newExperimentDbContext.SaveChanges();
-            return project;
+            /*After SaveChanges , ProjectId will be populated
+             * to have all the fields in ProjectAggregate populated,
+             * with related entities, we can fetch the project again from DB
+            */
+            return _newExperimentDbContext.Projects
+                                          .AsNoTracking()
+                                          .Include(p => p.Dept)
+                                          .Include(p => p.Tasks)
+                                          .ThenInclude(t => t.Comments)
+                                          .First(p => p.ProjectId == project.ProjectId);
         }
         #endregion
 

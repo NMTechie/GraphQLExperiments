@@ -14,6 +14,7 @@ namespace GraphQL.Application
             services.AddScoped<ICleanArchGraphQLQuery, CleanArchGraphQLQuery>();
             services.AddScoped<IHandleProjectQueries, HandleProjectQueries>();
             services.AddScoped<IHandleProjectMutations, HandleProjectMutations>();
+            services.AddScoped<IProjectDomainHydration, ProjectDomainHydration>();
             return services;
         }
     }
