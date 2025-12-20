@@ -77,6 +77,13 @@ has domain business logic behaviour then we should have a DTO for mutation input
 This way we can keep our client clean and not pushing to think about the domain logic. In our case, created date is field that can be a user
 input in any scenario but should be returned for viewing. Thus crerating a DTO for mutation input type makes sense to handle this.
 
+For exception handling in graphQL HotChocolate already provides Hotchocolate.GraphQLException class which is derived from base exception class.
+So in all our layers we could use this exception class to throw exceptions. The in the presentation layer in each graphQL resolver we could catch this exception 
+and handle it appropriately to return the error messages by throwing to client by wrapping it as Hotchocolate.GraphQLException. 
+This way we could have consistent exception handling mechanism across all layers and details of exception would only reside in server 
+never goes out.
+----> If you need more flexibility then look into IErrorFilter interface to customize the error messages globally.
+
 
 
 

@@ -18,6 +18,7 @@ namespace GraphQL.Application.UseCases.Projects
     public interface IHandleProjectMutations
     {
         public ProjectAggregate CreateProject(CreateProject project);
+        public ProjectAggregate UpdateProject(int projectId);
     }
 
     public class HandleProjectQueries(IGraphQLProjectRepository projectRepo) : IHandleProjectQueries
@@ -47,6 +48,10 @@ namespace GraphQL.Application.UseCases.Projects
         public ProjectAggregate CreateProject(CreateProject project)
         {
             return projectRepo.CreateProject(projectDomainHydration.PrepareForPersistance(project));
+        }
+        public ProjectAggregate UpdateProject(int projectId)
+        {
+            throw new NotImplementedException("This mutation handling is not available yet");   
         }
     }
 }

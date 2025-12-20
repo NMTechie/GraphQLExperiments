@@ -10,7 +10,7 @@ namespace GraphQL.Presentation.GraphQL
             grapgQLBuilder.AddQueryType<Query>().AddTypeExtension<ProjectQuery>();
             return grapgQLBuilder;
         }
-        public static IServiceCollection RegisterGraphQLDependencies(this IServiceCollection services)
+        public static IServiceCollection RegisterGraphQLDependencies(this IServiceCollection services, WebApplicationBuilder builder)
         {
             /*
              * You need this when you want DI to happen at graphQL querytypes/mutationtypes
@@ -31,12 +31,29 @@ namespace GraphQL.Presentation.GraphQL
             ****** Also the root type does not required to be decorated with attributes like [QueryType] or [MutationType]
             */
             services.AddGraphQLServer()
+                .ModifyRequestOptions(options =>
+                {
+                    /*Hard disables stacktrace (default is true and if you want env dependency
+                     * then use the line below
+                     */
+                    //options.IncludeExceptionDetails = false; 
+                    options.IncludeExceptionDetails = builder.Environment.IsDevelopment();
+                })
                 .AddProjections()
                 .AddSorting()
-                .AddFiltering()                                
-                .AddQueryType<Query>()                
+                .AddFiltering()
+                .AddQueryType<Query>()
                 .AddTypeExtension<ProjectQuery>()
                 .AddMutationType<ProjectMutation>();
+            /* The below two lines actually impacts the schema
+             * if you want to have some conventions (like Error<T> attributes for queries and mutations
+             * However this seems to be not working with the latest hotchocolate version
+             * as per the flexibility that would occur in practical projects
+             * look at the ProjectMutation class where I have used Error<T> attribute by enabling the line
+             * and check the schema generated
+             */
+            //.AddQueryConventions()
+            //.AddMutationConventions(applyToAllMutations: true);
             return services;
         }
     }
