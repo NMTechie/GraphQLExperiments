@@ -50,6 +50,7 @@ namespace GraphQL.Infrastructure.Persistence.Repository
                                           .Include(p => p.Dept)
                                           .Include(p => p.Tasks)
                                           .ThenInclude(t => t.Comments)
+                                          .AsSplitQuery()
                                           .First(p => p.ProjectId == project.ProjectId);
         }
         #endregion
